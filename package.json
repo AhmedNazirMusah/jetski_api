@@ -1,0 +1,30 @@
+{
+  "name": "jetski_api",
+  "version": "1.0.0",
+  "description": "Api for Jetski booking",
+  "main": "server.js",
+  "scripts": {
+    "start": "node API/server.js",
+    "server": "nodemon API/server.js" 
+
+  },
+  "repository": {
+    "type": "git", 
+    "url": "git+https://github.com/AhmedNazirMusah/jetski_api.git"
+  },
+  "author": "Ahmed Nazir Musah",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AhmedNazirMusah/jetski_api/issues"
+  },
+  "homepage": "https://github.com/AhmedNazirMusah/jetski_api#readme",
+  "dependencies": {
+    "colors": "^1.4.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  }
+}
