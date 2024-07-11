@@ -8,8 +8,9 @@ connectDB()
 
 const app = express()
 
-app.get('/api/jetski', (req, res) => {
-    res.json({message: "Get All Jetski"})
-})
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/api/users', require('./routes/userRoutes'));
 
 app.listen(port, () => console.log(`server started on port ${port}`))
