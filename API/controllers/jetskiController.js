@@ -6,7 +6,7 @@ const Jetski = require('../models/jetskiModel')
 // @route   GET /api/jetskis
 // @access  Private
 const getJetskis = asyncHandler(async (req, res) => {
-  const jetskis = await Jetski.find({ admin: req.user.id })
+  const jetskis = await Jetski.find()
 
   res.status(200).json(jetskis)
 })
@@ -22,8 +22,8 @@ const setJetski = asyncHandler(async (req, res) => {
 
   const jetski = await Jetski.create({
     admin: req.admin.id,
-    model: req.admin.model,
-    year: req.admin.year,
+    model: req.body.model,
+    year: req.body.year,
   })
 
   res.status(200).json(jetski)
