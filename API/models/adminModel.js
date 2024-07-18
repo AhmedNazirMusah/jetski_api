@@ -14,6 +14,11 @@ const adminSchema = mongoose.Schema({
         type: String,
         required: [true, 'Please add a password']
     },
+    role: {
+        type: String,
+        enum: ['admin', 'superadmin'],
+        default: 'admin'
+    }
 }, {
     timestamps: true,
 });
