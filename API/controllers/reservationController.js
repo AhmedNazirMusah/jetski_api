@@ -72,7 +72,6 @@ const addReservation = asyncHandler(async (req, res) => {
     res.status(200).json({ id: req.params.id })
   })
 
-//update to add update and delete reservation
   
 module.exports = {
     getReservations,
