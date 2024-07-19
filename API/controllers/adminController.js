@@ -8,12 +8,18 @@ const Admin = require('../models/adminModel')
 // @access  Private
 
 const registerAdmin = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body
+  const { name, email, password, role } = req.body;
 
-  if (!name || !email || !password) {
+  if (!name || !email || !password || !role) {
     res.status(400)
     throw new Error('Please add all fields')
   }
+
+      // Check if the requesting user is a super admin
+      if (req.admin.role !== 'superadmin') {
+        res.status(403);
+        throw new Error('Only super admins can create new admins');
+    }
 
   // Check if Admin exists
   const adminExists = await Admin.findOne({ email })
@@ -32,20 +38,22 @@ const registerAdmin = asyncHandler(async (req, res) => {
     name,
     email,
     password: hashedPassword,
-  })
+    role: role,
+});
 
-  if (admin) {
-    res.status(201).json({
+if (admin) {
+  res.status(201).json({
       _id: admin.id,
       name: admin.name,
       email: admin.email,
+      role: admin.role,
       token: generateToken(admin._id),
-    })
-  } else {
-    res.status(400)
-    throw new Error('Invalid user data')
-  }
-})
+  });
+} else {
+  res.status(400);
+  throw new Error('Invalid admin data');
+}
+});
 
 // @desc    Authenticate an Admin
 // @route   POST /api/admin/login
@@ -58,16 +66,17 @@ const loginAdmin = asyncHandler(async (req, res) => {
 
   if (admin && (await bcrypt.compare(password, admin.password))) {
     res.json({
-      _id: admin.id,
-      name: admin.name,
-      email: admin.email,
-      token: generateToken(admin._id),
-    })
-  } else {
-    res.status(400)
-    throw new Error('Invalid credentials')
-  }
-})
+        _id: admin.id,
+        name: admin.name,
+        email: admin.email,
+        role: admin.role,
+        token: generateToken(admin._id),
+    });
+} else {
+    res.status(400);
+    throw new Error('Invalid credentials');
+}
+});
 
 
 // Generate JWT
