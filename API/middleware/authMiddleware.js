@@ -56,7 +56,16 @@ const guard = asyncHandler(async (req,res, next) => {
     res.status(401) 
     throw new Error('not authorized no token')
   }
-
 })
 
-module.exports = { protect, guard }
+const requireSuperAdmin = (req, res, next) => {
+  if (!req.admin || req.admin.role !== 'superadmin') {
+      res.status(403);
+      throw new Error('Access forbidden: requires superadmin role');
+  }
+  next();
+};
+
+
+
+module.exports = { protect, guard, requireSuperAdmin }
