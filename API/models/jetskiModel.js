@@ -14,6 +14,9 @@ const jetskiSchema = mongoose.Schema({
         type: Number,
         required: [true, 'Please add a year']
     },
+    image: {
+        type: String,
+    },
 }, {
     timestamps: true,
 });
