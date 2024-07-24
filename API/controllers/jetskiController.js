@@ -25,7 +25,9 @@ const setJetski = asyncHandler(async (req, res) => {
     model: req.body.model,
     year: req.body.year,
   })
-
+  if(req.file) {
+    jetski.image = req.file.path
+  }
   res.status(200).json(jetski)
 })
 
