@@ -2,6 +2,16 @@ const asyncHandler = require('express-async-handler')
 
 const Jetski = require('../models/jetskiModel')
 
+// @desk Get One jetski
+// Get /api/jetskis/:id
+// private
+const getJetInfo = asyncHandler(async (req, res) => {
+  const jet = await Jetski.findById(req.params.id)
+
+  res.status(200).json(jet)
+
+})
+
 // @desc    Get jetskis
 // @route   GET /api/jetskis
 // @access  Private
@@ -20,11 +30,20 @@ const setJetski = asyncHandler(async (req, res) => {
     throw new Error('Please add a model and year field')
   }
 
-  const jetski = await Jetski.create({
-    admin: req.admin.id,
-    model: req.body.model,
-    year: req.body.year,
-  })
+   const file = req.files?.image;
+
+    let base64Image = null;
+    if (file) {
+      base64Image = file.data.toString('base64');
+    }
+   
+    const jetski = await Jetski.create({
+      admin: req.admin.id,
+      model: req.body.model,
+      year: req.body.year,
+      image: base64Image,
+    })
+
 
   res.status(200).json(jetski)
 })
@@ -93,4 +112,5 @@ module.exports = {
   setJetski,
   updateJetski,
   deleteJetski,
+  getJetInfo,
 }
