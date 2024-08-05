@@ -4,6 +4,11 @@ const dotenv = require('dotenv').config();
 const { errorHandler } = require('./middleware/errorMiddleware');
 const adminRoutes = require('./routes/adminRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
+
+const fileUpload = require('express-fileupload');
+
+
+
 const userRoutes = require('./routes/userRoutes');
 const jetskiRoutes = require('./routes/jetskiRoutes');
 const connectDB = require('./config/db');
@@ -13,6 +18,8 @@ connectDB()
 
 const app = express()
 
+
+app.use(fileUpload());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', userRoutes);
