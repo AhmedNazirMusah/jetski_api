@@ -14,10 +14,14 @@ const jetskiSchema = mongoose.Schema({
         type: Number,
         required: [true, 'Please add a year']
     },
-    image: {
+    file: {
         type: String,
-        required: false,
-      },
+        required: [true, "add an image"]
+    },
+    url: {
+        type: String,
+    },
+
 }, {
     timestamps: true,
 });
