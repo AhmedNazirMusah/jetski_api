@@ -5,7 +5,6 @@ const { errorHandler } = require('./middleware/errorMiddleware');
 const adminRoutes = require('./routes/adminRoutes');
 const reservationRoutes = require('./routes/reservationRoutes');
 
-const fileUpload = require('express-fileupload');
 
 
 
@@ -19,7 +18,7 @@ connectDB()
 const app = express()
 
 
-app.use(fileUpload());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use('/api/users', userRoutes);
